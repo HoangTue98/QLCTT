@@ -86,6 +86,8 @@ public class PlayerUI extends javax.swing.JFrame {
         rdoHLV = new javax.swing.JRadioButton();
         jLabel13 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        txtSearch = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -290,15 +292,19 @@ public class PlayerUI extends javax.swing.JFrame {
             }
         });
 
+        txtSearch.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtSearchCaretUpdate(evt);
+            }
+        });
+
+        jLabel7.setText("Tìm kiếm:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(263, 263, 263)
-                .addComponent(jLabel1)
-                .addContainerGap(369, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -326,7 +332,8 @@ public class PlayerUI extends javax.swing.JFrame {
                                     .addComponent(rdoHLV))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtQuoctich, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                                    .addComponent(txtEmail)))))
+                                    .addComponent(txtEmail)))
+                            .addGap(26, 26, 26)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addGap(181, 181, 181)))
@@ -359,12 +366,23 @@ public class PlayerUI extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtTienluong, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addGap(59, 59, 59))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(263, 263, 263)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -414,7 +432,11 @@ public class PlayerUI extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel12)
                         .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(55, 55, 55)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel8)
                     .addComponent(jButton1))
@@ -743,6 +765,12 @@ public class PlayerUI extends javax.swing.JFrame {
    home.setVisible(true);
     }//GEN-LAST:event_btn1ActionPerformed
 
+    private void txtSearchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtSearchCaretUpdate
+    FindName = txtSearch.getText();
+        pServiceImp.Select_By_Name(FindName);
+        LoadDataName();        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchCaretUpdate
+
     /**
      * @param args the command line arguments
      */
@@ -798,6 +826,7 @@ public class PlayerUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -814,6 +843,7 @@ public class PlayerUI extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtQuoctich;
     private javax.swing.JTextField txtSdt;
+    private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtSoao;
     private javax.swing.JTextField txtTienluong;
     // End of variables declaration//GEN-END:variables
@@ -874,6 +904,29 @@ public class PlayerUI extends javax.swing.JFrame {
             }
         } catch (Exception e) {
         }
+    }
+
+    private void LoadDataName() {
+ model = (DefaultTableModel) tblCauthu.getModel();
+        model.setRowCount(0);
+        try {
+            List<player> listNV = pServiceImp.Select_By_Name(FindName);
+            for (player x : listNV) {
+                Object[] row = {
+                    x.getIdPlayer(),
+                    x.getPlayername(),
+                    x.getYear(),
+                    x.isSex() ? "Nam" : "Nữ",
+                    x.getClothersnumber(),
+                    x.getNationality(),
+                    x.getPhone(),
+                    x.getEmail(),
+                    x.getSalaly(),
+                    x.isRole() ? "Cần thủ" : "HLV"};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+        }   
     }
 
 }
